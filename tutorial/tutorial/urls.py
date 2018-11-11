@@ -17,4 +17,5 @@ router.register(r'users', views.UserViewSet)
 urlpatterns = [
     path('schema/', schema_view),
     path('', include(router.urls)),
+    path('', include('frontend.urls')),
 ]

@@ -40,6 +40,6 @@ class GetAllSnippetsTest(BaseViewTest):
         response = self.client.get('/snippets/', request=request)
         expected = Snippet.objects.all()
         serialized_expected = SnippetSerializer(expected, many=True, context={'request': request})
-        
+
         self.assertEqual(response.data['results'], serialized_expected.data)
         self.assertEqual(response.status_code, status.HTTP_200_OK)

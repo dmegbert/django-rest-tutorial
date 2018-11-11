@@ -1,0 +1,28 @@
+{
+  "name": "django-rest-tutorial",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "dev": "webpack ./tutorial/frontend/src/index.js ./tutorial/frontend/static/frontend/main.js",
+    "build": "webpack --mode production ./tutorial/frontend/src/index.js --output ./tutorial/frontend/static/frontend/main.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@dmegbert:dmegbert/django-rest-tutorial"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@babel/core": "^7.1.5",
+    "@babel/preset-env": "^7.1.5",
+    "@babel/preset-react": "^7.0.0",
+    "babel-loader": "^8.0.4",
+    "babel-plugin-transform-class-properties": "^6.24.1",
+    "prop-types": "^15.6.2",
+    "react": "^16.6.1",
+    "react-dom": "^16.6.1",
+    "weak-key": "^1.0.1"
+  }
+}

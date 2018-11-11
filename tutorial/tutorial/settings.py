@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'django_pdb',
     'rest_framework',
     'snippets.apps.SnippetsConfig',
+    'frontend.apps.FrontendConfig',
 ]
 
 MIDDLEWARE = [

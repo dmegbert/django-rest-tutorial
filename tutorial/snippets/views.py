@@ -10,7 +10,7 @@ from snippets.serializers import SnippetSerializer, UserSerializer
 
 class SnippetViewSet(viewsets.ModelViewSet):
     """
-    This viewset automatically provides 'list', 'create', 'retrieve', 'updated', and 'destroy' actions
+    This viewset automatically provides 'list', 'create', 'retrieve', 'update', and 'destroy' actions
 
     Additionally, we provide an extra 'highlight' action
     """

@@ -61,3 +61,24 @@ class SnippetsTest(BaseViewTest):
 
         self.assertContains(response, text='Hello Post', count=1, status_code=201)
 
+    def test_put_update_snippet(self):
+        snippet_to_update = Snippet.objects.get(code='python is cool')
+        data = {
+            "id": str(snippet_to_update.id),
+            "title": "test_put",
+            "code": "Hello Put",
+            "linenos": False,
+            "language": 'python',
+            "style": 'friendly'
+        }
+        factory = APIRequestFactory()
+        user = User.objects.get(username='joe')
+        view = SnippetViewSet.as_view({'put': 'update'})
+
+        # Make an authenticated request to the view
+        request = factory.put('/snippets/', data=data, format='json')
+        force_authenticate(request, user=user)
+        response = view(request, pk=snippet_to_update.id)
+
+        self.assertContains(response, text='Hello Put', count=1, status_code=200)
+

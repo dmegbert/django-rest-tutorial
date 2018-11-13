@@ -5,3 +5,4 @@ db.sqlite3
 tutorial/db.sqlite3
 *.sqlite3
 tutorial/snippets/migrations/
+geckodriver.log

@@ -5,7 +5,7 @@ import Table from "./Table";
 
 
 const App = () => (
-  <DataProvider endpoint="/snippets.json"
+  <DataProvider endpoint="/snippets/"
                 render={data => <Table data={data} />} />
 );
 const wrapper = document.getElementById("app");

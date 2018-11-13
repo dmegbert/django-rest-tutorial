@@ -1170,7 +1170,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 var App = function App() {
   return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_2__DataProvider__["a" /* default */], {
-    endpoint: "/snippets.json",
+    endpoint: "/snippets/",
     render: function render(data) {
       return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_3__Table__["a" /* default */], {
         data: data

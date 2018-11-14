@@ -1,12 +1,10 @@
-import json
-
 from django.contrib.auth.models import User
-from django.urls import reverse
-from rest_framework.test import APITestCase, APIClient, APIRequestFactory, force_authenticate
+from pytest import raises
+from rest_framework.test import APITestCase, APIRequestFactory, force_authenticate
 from rest_framework.views import status
 
 from snippets.models import Snippet
-from snippets.serializers import SnippetSerializer, UserSerializer
+from snippets.serializers import SnippetSerializer
 from snippets.views import SnippetViewSet
 
 
@@ -39,9 +37,17 @@ class SnippetsTest(BaseViewTest):
         self.assertEqual(response.data['results'], serialized_expected.data)
         self.assertEqual(response.status_code, status.HTTP_200_OK)
 
+    def test_get_one_snippet(self):
+        factory = APIRequestFactory()
+        request = factory.get('/snippets/')
+        view = SnippetViewSet.as_view({'get': 'retrieve'})
+        snippet_to_get = Snippet.objects.get(code='python is cool')
+        response = view(request, pk=snippet_to_get.id)
+
+        self.assertContains(response, text=snippet_to_get.code, count=1, status_code=200)
+
+
     def test_post_new_snippet(self):
-        # client = APIClient()
-        # client.login(username=self.user.username, password='tester')
         data = {
             "title": "test_post",
             "code": "Hello Post",
@@ -59,7 +65,8 @@ class SnippetsTest(BaseViewTest):
         force_authenticate(request, user=user)
         response = view(request)
 
-        self.assertContains(response, text='Hello Post', count=1, status_code=201)
+        self.assertContains(response, text='highlight', count=2, status_code=201)
+        self.assertEqual(response.data['owner'], 'joe')
 
     def test_put_update_snippet(self):
         snippet_to_update = Snippet.objects.get(code='python is cool')
@@ -81,4 +88,21 @@ class SnippetsTest(BaseViewTest):
         response = view(request, pk=snippet_to_update.id)
 
         self.assertContains(response, text='Hello Put', count=1, status_code=200)
+
+    def test_delete_snippet(self):
+        snippet_to_delete = Snippet.objects.get(code='python is cool')
+        factory = APIRequestFactory()
+        user = User.objects.get(username='joe')
+        view = SnippetViewSet.as_view({'delete': 'destroy'})
+
+        # Make an authenticated request to the view
+        request = factory.delete('/snippets/', format='json')
+        force_authenticate(request, user=user)
+        response = view(request, pk=snippet_to_delete.id)
+
+        assert response.status_code == 204
+        assert response.data is None
+        with raises(Snippet.DoesNotExist, message='Snippet matching query does not exist'):
+            Snippet.objects.get(code='python is cool')
+
 

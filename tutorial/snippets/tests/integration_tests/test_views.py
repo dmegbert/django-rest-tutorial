@@ -46,7 +46,6 @@ class SnippetsTest(BaseViewTest):
 
         self.assertContains(response, text=snippet_to_get.code, count=1, status_code=200)
 
-
     def test_post_new_snippet(self):
         data = {
             "title": "test_post",

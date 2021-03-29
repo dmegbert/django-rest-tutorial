@@ -9,7 +9,7 @@ idna==2.7
 itypes==1.1.0
 Jinja2==2.10
 MarkupSafe==1.1.0
-Pygments==2.2.0
+Pygments==2.7.4
 pytz==2018.7
 requests==2.20.1
 uritemplate==3.0.0
